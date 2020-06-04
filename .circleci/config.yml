@@ -25,17 +25,17 @@ jobs:
       - checkout
       - run: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
       - run:
+          working_direcory: ./server
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t stochel/cicd-server:$TAG .
             docker push stochel/cicd-server:$TAG
-          working_direcory: ./server
       - run:
+          working_direcory: ./client
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t stochel/cicd-client:$TAG .
             docker push stochel/cicd-client:$TAG
-          working_direcory: ./client
 workflows:
     build-and-test:
       jobs:
